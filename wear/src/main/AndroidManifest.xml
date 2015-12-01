@@ -33,6 +33,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.navroopsingh.spotlight.BeginPresentationActivity" />
         </activity>
+        <activity
+            android:name=".EndPresentationActivity"
+            android:label="@string/title_activity_end_presentation" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".WatchStatisticsActivity"
+            android:label="@string/title_activity_watch_statistics" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class DuringPresentationActivity extends Activity {
 
@@ -36,5 +37,11 @@ public class DuringPresentationActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // This is the onClick method set for the ImageButton in this activity's view
+    public void endPresentation(View view) {
+        Intent intent = new Intent(this, EndPresentationActivity.class);
+        startActivity(intent);
     }
 }

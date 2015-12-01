@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/container"
-    tools:context=".DuringPresentationActivity" tools:deviceIds="wear">
+    tools:context=".EndPresentationActivity" tools:deviceIds="wear">
 
-    <ImageButton android:id="@+id/firstSlidePresentationButton"
+    <ImageButton android:id="@+id/lastSlidePresentationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/green"
-        android:onClick="endPresentation"/>
+        android:src="@drawable/red"
+        android:onClick="goToStats"/>
 
 </android.support.wearable.view.BoxInsetLayout>
+
