@@ -1,9 +1,11 @@
 package com.navroopsingh.spotlight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -12,12 +14,15 @@ import java.util.Locale;
 
 public class BeginPresentationActivity extends WearableActivity {
 
+    public final static String BEGIN_PRESENTATION_MESSAGE = "com.navroopsingh.spotlight.BEGIN_PRESENTATION_MESSAGE";
+
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
             new SimpleDateFormat("HH:mm", Locale.US);
 
     private BoxInsetLayout mContainerView;
     private TextView mTextView;
     private TextView mClockView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +31,6 @@ public class BeginPresentationActivity extends WearableActivity {
         setAmbientEnabled();
 
         mContainerView = (BoxInsetLayout) findViewById(R.id.container);
-        mTextView = (TextView) findViewById(R.id.text);
-        mClockView = (TextView) findViewById(R.id.clock);
     }
 
     @Override
@@ -60,5 +63,11 @@ public class BeginPresentationActivity extends WearableActivity {
             mTextView.setTextColor(getResources().getColor(android.R.color.black));
             mClockView.setVisibility(View.GONE);
         }
+    }
+
+    public void beginPresentation(View view) {
+        Intent intent = new Intent(this, DuringPresentationActivity.class);
+        intent.putExtra(BEGIN_PRESENTATION_MESSAGE, "begin");
+        startActivity(intent);
     }
 }

@@ -1,6 +1,7 @@
 package com.navroopsingh.spotlight;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,8 @@ public class DuringPresentationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_during_presentation);
+//        Intent intent = getIntent();
+//        String message = intent.getStringExtra(BeginPresentationActivity.BEGIN_PRESENTATION_MESSAGE);
     }
 
     @Override
