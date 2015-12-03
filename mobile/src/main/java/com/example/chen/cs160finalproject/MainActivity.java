@@ -1,11 +1,15 @@
 package com.example.chen.cs160finalproject;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +28,7 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity {
 
     ExpandableListAdapter listAdapter;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         NUMBER_OF_PRESENTATIONS = getNumberPresentations();
+
         presentationOptions = new ArrayList<>();
         presentationOptions.add("Edit");
         presentationOptions.add("Practice");
@@ -65,8 +71,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
                 switch (childPosition) {
-                    case 0: break;
-                    case 1: break;
+                    case 0:
+                        Intent goToEdit = new Intent(MainActivity.this, EditPresentation.class);
+                        startActivity(goToEdit);
+                        break;
+                    case 1:
+                        Intent goToProgress = new Intent(MainActivity.this, PresentationInProgress.class);
+                        startActivity(goToProgress);
+                        break;
                     case 2: deletePresentationDialog(groupPosition);
                         break;
                     default: break;
@@ -79,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+       getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     private int getNumberPresentations() {

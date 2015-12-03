@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CS160FinalProject</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_hi">hi</string>
+    <string name="title_activity_presentation_in_progress">PresentationInProgress</string>
+    <string name="title_activity_edit_presentation">EditPresentation</string>
 </resources>

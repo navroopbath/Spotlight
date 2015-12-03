@@ -20,6 +20,16 @@
         </activity>
         <activity android:name=".preziHubActivity" >
         </activity>
+        <activity
+            android:name=".PresentationInProgress"
+            android:label="@string/title_activity_presentation_in_progress"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".EditPresentation"
+            android:label="@string/title_activity_edit_presentation"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
