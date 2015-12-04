@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +46,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         NUMBER_OF_PRESENTATIONS = getNumberPresentations();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Spotlight: Presentations");
 
         presentationOptions = new ArrayList<>();
         presentationOptions.add("Edit");
         presentationOptions.add("Practice");
         presentationOptions.add("Delete");
+        presentationOptions.add("Statistics");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (childPosition) {
                     case 0:
                         Intent goToEdit = new Intent(MainActivity.this, EditPresentation.class);
+                        packIntent(goToEdit, groupPosition);
                         startActivity(goToEdit);
                         break;
                     case 1:
                         Intent goToProgress = new Intent(MainActivity.this, PresentationInProgress.class);
+                        packIntent(goToProgress, groupPosition);
                         startActivity(goToProgress);
                         break;
                     case 2: deletePresentationDialog(groupPosition);
                         break;
+                    case 3: break;
                     default: break;
                 }
                 Toast.makeText(getApplicationContext(),
@@ -97,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void packIntent(Intent intent, int presentationPosition) {
+        intent.putExtra("presentation", presentationPosition);
     }
 
     private int getNumberPresentations() {
@@ -180,7 +192,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             String FILE_NAME = FILE_NAME_BASE + NUMBER_OF_PRESENTATIONS;
             FileOutputStream fos = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-            fos.write(presentationName.getBytes());
+            fos.write((presentationName + "\n").getBytes());
+            fos.write((1 + "\n").getBytes());
+            fos.write((2 + "\n").getBytes());
+            fos.write(("first\n").getBytes());
+            fos.write(("second\n").getBytes());
             fos.close();
         }catch(Exception e) {
         }
@@ -217,18 +233,11 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //            Toast.makeText(getApplicationContext(), "Finished creating presentations", Toast.LENGTH_LONG).show();
             for(int i = 0; i < NUMBER_OF_PRESENTATIONS; i++) {
-                List<String>currentPresentationList = new ArrayList<>();
                 String FILE_NAME = FILE_NAME_BASE + i;
                 FileInputStream fis = openFileInput(FILE_NAME);
-                String title = "";
-                int character;
-                while ((character = fis.read()) != -1) {
-                    title = title + Character.toString((char) character);
-                }
+                String title = new BufferedReader(new InputStreamReader(fis)).readLine();
                 fis.close();
                 listDataHeader.add(title);
-//                currentPresentationList.add(title);
-//                currentPresentationList.addAll(presentationOptions);
                 listDataChild.put(listDataHeader.get(i), presentationOptions);
             }
             Toast.makeText(getApplicationContext(), "Finished loading presentations", Toast.LENGTH_LONG).show();
