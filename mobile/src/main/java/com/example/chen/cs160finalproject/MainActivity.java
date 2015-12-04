@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> presentationOptions;
     HashMap<String, List<String>> listDataChild;
     final static String FILE_NAME_BASE = "presentation_";
+    final static int EXTRA_LINES = 1;
     int NUMBER_OF_PRESENTATIONS;
 
     @Override
@@ -193,10 +194,11 @@ public class MainActivity extends AppCompatActivity {
             String FILE_NAME = FILE_NAME_BASE + NUMBER_OF_PRESENTATIONS;
             FileOutputStream fos = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             fos.write((presentationName + "\n").getBytes());
-            fos.write((1 + "\n").getBytes());
-            fos.write((2 + "\n").getBytes());
-            fos.write(("first\n").getBytes());
-            fos.write(("second\n").getBytes());
+            fos.write((1 + "\n").getBytes()); // one empty slide
+            fos.write((0 + "\n").getBytes()); // placeholder keywords number
+//            fos.write(("first\n").getBytes());
+//            fos.write(("second\n").getBytes());
+            fos.write((0 + "\n").getBytes()); // placeholder time
             fos.close();
         }catch(Exception e) {
         }
