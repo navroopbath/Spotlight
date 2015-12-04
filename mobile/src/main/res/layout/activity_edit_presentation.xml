@@ -19,7 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text="Presentation Name"
+        android:inputType="text"
+        android:ems="7"
         android:textSize="25dp"
         android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
@@ -32,7 +33,7 @@
         android:text="Start"
         android:id="@+id/startButton"
         android:textSize="25dp"
-        android:layout_marginLeft="260dp"
+        android:layout_marginLeft="250dp"
         android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
@@ -73,7 +74,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/keyword1Input"
         android:layout_marginTop="130dp"
@@ -83,7 +84,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/keyword2Input"
         android:layout_marginTop="190dp"
@@ -93,42 +94,46 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/keyword3Input"
         android:layout_marginTop="250dp"
         android:layout_marginLeft="140dp"
         android:layout_alignParentEnd="true" />
 
-    <Chronometer
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/minute"
+        android:inputType="number"
+        android:ems="3"
+        android:id="@+id/minuteInput"
+        android:gravity="center"
+        android:layout_marginTop="325dp"
+        android:layout_marginLeft="105dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:id="@+id/colon"
         android:textSize="50dp"
-        android:layout_marginTop="315dp"
-        android:layout_marginLeft="125dp"
-        android:layout_alignTop="@+id/second"
-        android:layout_toEndOf="@+id/keyword3" />
+        android:layout_marginTop="310dp"
+        android:layout_marginLeft="180dp"
+        android:layout_toEndOf="@+id/minute" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=":"-->
-        <!--android:id="@+id/colon"-->
-        <!--android:textSize="50dp"-->
-        <!--android:layout_marginTop="315dp"-->
-        <!--android:layout_marginLeft="185dp"-->
-        <!--android:layout_toEndOf="@+id/minute" />-->
-
-    <!--<Chronometer-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/second"-->
-        <!--android:textSize="50dp"-->
-        <!--android:layout_marginTop="315dp"-->
-        <!--android:layout_marginLeft="200dp"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_toEndOf="@+id/colon" />-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="3"
+        android:id="@+id/secondInput"
+        android:gravity="center"
+        android:layout_marginTop="325dp"
+        android:layout_marginLeft="205dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -137,16 +142,17 @@
         android:textSize="25dp"
         android:id="@+id/addSlideButton"
         android:layout_marginTop="487dp"
-        android:layout_marginLeft="25dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_alignEnd="@+id/keyword3"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Delete Slide"
         android:textSize="25dp"
         android:id="@+id/deleteSlideButton"
         android:layout_marginTop="487dp"
-        android:layout_marginLeft="185dp"
+        android:layout_marginLeft="170dp"
         android:layout_alignEnd="@+id/keyword3Input" />
 
     <HorizontalScrollView
@@ -170,6 +176,54 @@
                 android:textColor="#ffffff"/>
         </LinearLayout>
     </HorizontalScrollView>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/plusoneMinute"
+        android:text="+ 1"
+        android:textSize="20dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/minusoneMinute"
+        android:text="-  1"
+        android:textSize="20dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/plusoneSecond"
+        android:text="+ 1"
+        android:textSize="20dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="285dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/minusoneSecond"
+        android:text="-  1"
+        android:textSize="20dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="285dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <include layout="@layout/content_edit_presentation" />
 
