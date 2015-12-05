@@ -89,7 +89,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2: deletePresentationDialog(groupPosition);
                         break;
-                    case 3: break;
+                    case 3:
+                        Intent goToStats = new Intent(MainActivity.this, StatsActivity.class);
+                        packIntent(goToStats, groupPosition);
+                        startActivity(goToStats);
+                        break;
                     default: break;
                 }
                 Toast.makeText(getApplicationContext(),

@@ -4,4 +4,5 @@
     <string name="title_activity_hi">hi</string>
     <string name="title_activity_presentation_in_progress">PresentationInProgress</string>
     <string name="title_activity_edit_presentation">EditPresentation</string>
+    <string name="title_activity_stats">StatsActivity</string>
 </resources>
