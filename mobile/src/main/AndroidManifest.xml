@@ -30,6 +30,12 @@
             android:label="@string/title_activity_edit_presentation"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <service
+            android:name=".SignalWatchService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
