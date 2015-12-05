@@ -14,7 +14,7 @@ public class WatchListenerService extends WearableListenerService {
     private static final String START_ACTIVITY = "/start_activity";
 
     @Override
-    /* Assume the message received in the form "time keyword1 keyword2 keyword3 \n time ... ... ..."*/
+    /* Assume the message received in the form "title\n seconds keyword1 keyword2 keyword3 \n seconds ... ... ..."*/
     public void onMessageReceived(MessageEvent messageEvent) {
         if( messageEvent.getPath().equalsIgnoreCase( START_ACTIVITY ) ) {
             String value = new String(messageEvent.getData());
