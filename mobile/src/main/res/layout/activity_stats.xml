@@ -15,6 +15,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="240dip"
+        android:layout_marginTop="65dp"
+        android:id="@+id/timeGraph" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="240dip"
+        android:layout_marginTop="325dp"
+        android:id="@+id/accelerationGraph" />
+
+
     <include layout="@layout/content_stats" />
 
 </android.support.design.widget.CoordinatorLayout>
