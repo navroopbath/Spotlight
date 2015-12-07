@@ -1,12 +1,16 @@
 package com.example.chen.cs160finalproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,6 @@ public class EditPresentation extends AppCompatActivity {
 
     int presentationNum;
     int slideNum;
-    String[]presentationData;
     List<String>presentationDataList;
     TextView presentationTitle;
     Button startButton;
@@ -62,7 +65,8 @@ public class EditPresentation extends AppCompatActivity {
         addSlideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storeKeywords(presentationData, presentationNum, slideNum);
+                storeKeywords(slideNum);
+                newSlide();
             }
         });
 
@@ -71,16 +75,75 @@ public class EditPresentation extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             presentationNum = extras.getInt("presentation");
-            loadPresentation(presentationNum);
+            loadPresentation();
         }
     }
 
-    private void loadPresentation(int presentationNum) {
+    /*
+    First modifies presentationDataList to be up to date, then writes presentationDataList.
+    Finally, takes the new slideNum and loads slides up to that number.
+     */
+    private void newSlide() {
+        slideNum++;
+        for(int i = 0; i < presentationDataList.size(); i++) {
+            Log.e("newSlide keke1", presentationDataList.get(i));
+        }
+        presentationDataList.set(1, slideNum + "");
+        presentationDataList.add("0");
+        presentationDataList.add("0");
+        for (int i = 0; i < presentationDataList.size(); i++) {
+            Log.e("newslide keke2", presentationDataList.get(i));
+        }
+        write();
+        loadSlidesIntoView();
+    }
+
+    private void loadSlidesIntoView() {
+        LinearLayout slideLayout = (LinearLayout) findViewById(R.id.slides);
+        slideLayout.removeAllViews();
+        int totalSlides = Integer.parseInt(presentationDataList.get(1));
+        for(int i = 1; i <= totalSlides; i++) {
+            TextView nextSlide = new TextView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            nextSlide.setText(" " + i + " ");
+            nextSlide.setTextSize(50);
+            nextSlide.setTextColor(Color.parseColor("#ffffff"));
+            nextSlide.setBackgroundColor(Color.parseColor("#6699ff"));
+            if(i == totalSlides) {
+                nextSlide.setBackgroundColor(Color.parseColor("#3366cc"));
+            }
+            nextSlide.setBackgroundResource(R.drawable.back);
+            nextSlide.setLayoutParams(params);
+            slideLayout.addView(nextSlide);
+        }
+    }
+
+    /*
+    Writes the data in presentationDataList into the text file. Overrides the text file, so
+    presentationDataList must be complete.
+     */
+    private void write() {
         try {
             String FILE_NAME = MainActivity.FILE_NAME_BASE + presentationNum;
-//            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_APPEND);
-//            fos.write(("kek" + "\n").getBytes());
-//            fos.close();
+            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            for(int i = 0; i < presentationDataList.size(); i++) {
+                fos.write((presentationDataList.get(i) + "\n").getBytes());
+            }
+            fos.close();
+        } catch (NullPointerException e) {
+            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "writePresentation error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*
+    Loads the presentation corresponding to presentationNum and all of its data into
+    presentationDataList. Each line in the text file is a separate entry in the list.
+     */
+    private void load() {
+        try {
+            String FILE_NAME = MainActivity.FILE_NAME_BASE + presentationNum;
 
             FileInputStream fis = openFileInput(FILE_NAME);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((fis)));
@@ -89,20 +152,27 @@ public class EditPresentation extends AppCompatActivity {
             while((line = bufferedReader.readLine()) != null) {
                 buffer.append(line + "\n");
             }
-//            String total = "";
-            presentationData = buffer.toString().split("\n");
-            presentationDataList = Arrays.asList(presentationData);
-//            for(int i = 0; i < presentation.length; i++) {
-//                total = total + presentation[i] + "\n";
-//            }
-//            Toast.makeText(getApplicationContext(), total, Toast.LENGTH_LONG).show();
-            if(presentationData.length > 1) {
-                loadKeywords(presentationData, 1);
+            String[]presentationData = buffer.toString().split("\n");
+            presentationDataList = new ArrayList<>();
+            for(int i = 0; i < presentationData.length; i++) {
+                presentationDataList.add(presentationData[i]);
             }
             fis.close();
         }catch(Exception e) {
-            Toast.makeText(getApplicationContext(), "Error reading: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Presentation data error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    /*
+    Loads the presentation data and also loads the keywords for the first slide.
+    TODO: load all slides visually
+     */
+    private void loadPresentation() {
+        load();
+        if(presentationDataList.size() > 1) {
+            loadKeywords(1);
+        }
+        loadSlidesIntoView();
     }
 
     /* presentation array will look like:
@@ -112,23 +182,22 @@ public class EditPresentation extends AppCompatActivity {
         [integer representing lines of keywords, say k]
         --k lines of keywords--
         one line representing the time assigned to the slide
-
      */
-    private void loadKeywords(String[]presentation, int slideNumber) {
+    private void loadKeywords(int slideNumber) {
         int lineCounter = 2;
         int numKeywords;
         for(int i = 0; i < slideNumber - 1; i++) {
-            numKeywords = Integer.parseInt(presentation[lineCounter]);
+            numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
             lineCounter += numKeywords + MainActivity.EXTRA_LINES + 1;
         }
-        numKeywords = Integer.parseInt(presentation[lineCounter]);
+        numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
         switch(numKeywords) {
-            case 1: keyword1Input.setText(presentation[lineCounter + 1]); break;
-            case 2: keyword1Input.setText(presentation[lineCounter + 1]);
-                    keyword2Input.setText(presentation[lineCounter + 2]); break;
-            case 3: keyword1Input.setText(presentation[lineCounter + 1]);
-                    keyword2Input.setText(presentation[lineCounter + 2]);
-                    keyword3Input.setText(presentation[lineCounter + 3]); break;
+            case 1: keyword1Input.setText(presentationDataList.get(lineCounter + 1)); break;
+            case 2: keyword1Input.setText(presentationDataList.get(lineCounter + 1));
+                    keyword2Input.setText(presentationDataList.get(lineCounter + 2)); break;
+            case 3: keyword1Input.setText(presentationDataList.get(lineCounter + 1));
+                    keyword2Input.setText(presentationDataList.get(lineCounter + 2));
+                    keyword3Input.setText(presentationDataList.get(lineCounter + 3)); break;
             default: break;
         }
     }
@@ -142,61 +211,46 @@ public class EditPresentation extends AppCompatActivity {
         one line representing the time assigned to the slide
 
      */
-    private void storeKeywords(String[] presentation, int presentationNum, int slideNumber) {
-        try {
-            String FILE_NAME = MainActivity.FILE_NAME_BASE + presentationNum;
-
-            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-            List<String> presentationDataList = new ArrayList<>();
-            for(int i = 0; i < presentation.length; i++) {
-                presentationDataList.add(presentation[i]);
-            }
-//            for(int i = 0; i < presentationDataList.size(); i++) {
-//                Log.e("keke1", presentationDataList.get(i));
-//            }
-            int lineCounter = 2;
-            int numKeywords;
-            for (int i = 0; i < slideNumber - 1; i++) {
-                numKeywords = Integer.parseInt(presentation[lineCounter]);
-                lineCounter += numKeywords + MainActivity.EXTRA_LINES + 1;
-            }
-            numKeywords = Integer.parseInt(presentation[lineCounter]);
-            //Log.e("keke2", numKeywords+"");
-            for (int i = 0; i < numKeywords + MainActivity.EXTRA_LINES + 1; i++) {
-                String str = presentationDataList.remove(lineCounter);
-                //Log.e("keke2.5", str);
-            }
-            int count = 0;
-            if (keyword1Input.getText() != null) {
-                count++;
-            }
-            if (keyword2Input.getText() != null) {
-                count++;
-            }
-            if (keyword3Input.getText() != null) {
-                count++;
-            }
-            presentationDataList.add(lineCounter++, count + "");
-            if (keyword1Input.getText() != null) {
-                presentationDataList.add(lineCounter++, keyword1Input.getText().toString());
-            }
-            if (keyword2Input.getText() != null) {
-                presentationDataList.add(lineCounter++, keyword2Input.getText().toString());
-            }
-            if (keyword3Input.getText() != null) {
-                presentationDataList.add(lineCounter++, keyword3Input.getText().toString());
-            }
-            presentationDataList.add(lineCounter, 0 + "");
-
-            for (int i = 0; i < presentationDataList.size(); i++) {
-                //Log.e("keke4", presentationDataList.get(i));
-                fos.write((presentationDataList.get(i) + "\n").getBytes());
-            }
-            fos.close();
-        }catch(NullPointerException e) {
-            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        }catch(Exception e) {
-            Toast.makeText(getApplicationContext(), "Error reading: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+    private void storeKeywords(int slideNumber) {
+        for(int i = 0; i < presentationDataList.size(); i++) {
+            Log.e("keke1", presentationDataList.get(i));
         }
+        int lineCounter = 2;
+        int numKeywords;
+        for (int i = 0; i < slideNumber - 1; i++) {
+            numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
+            lineCounter += numKeywords + MainActivity.EXTRA_LINES + 1;
+        }
+        numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
+        Log.e("keke2", numKeywords+"");
+        for (int i = 0; i < numKeywords + MainActivity.EXTRA_LINES + 1; i++) {
+            String str = presentationDataList.remove(lineCounter);
+            Log.e("keke2.5", str);
+        }
+        int count = 0;
+        if (keyword1Input.getText().toString().length() != 0) {
+            count++;
+        }
+        if (keyword2Input.getText().toString().length() != 0) {
+            count++;
+        }
+        if (keyword3Input.getText().toString().length() != 0) {
+            count++;
+        }
+        presentationDataList.add(lineCounter++, count + "");
+        if (keyword1Input.getText().toString().length() != 0) {
+            presentationDataList.add(lineCounter++, keyword1Input.getText().toString());
+        }
+        if (keyword2Input.getText().toString().length() != 0) {
+            presentationDataList.add(lineCounter++, keyword2Input.getText().toString());
+        }
+        if (keyword3Input.getText().toString().length() != 0) {
+            presentationDataList.add(lineCounter++, keyword3Input.getText().toString());
+        }
+        presentationDataList.add(lineCounter, 0 + "");
+        for (int i = 0; i < presentationDataList.size(); i++) {
+            Log.e("keke4", presentationDataList.get(i));
+        }
+        write();
     }
 }
