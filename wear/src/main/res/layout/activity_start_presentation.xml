@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.WatchViewStub
+<android.support.wearable.view.BoxInsetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/watch_view_stub"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_start_presentation"
-    app:roundLayout="@layout/round_activity_start_presentation"
-    tools:context="com.example.chen.cs160finalproject.StartPresentation"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/start"
+    android:id="@+id/container" tools:context=".MainActivity"
+    tools:deviceIds="wear">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VC Pitch"
+        android:id="@+id/preziTitle"
+        android:textSize="40dp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="58dp"
+        android:layout_below="@+id/startButton"
+        android:layout_alignStart="@+id/titleTextView" />
+    <ImageButton
+        android:id="@+id/greenbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/checkbutton"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="55dp"/>
+    <ImageButton
+        android:id="@+id/redbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/redbutton"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="125dp"/>
+
+
+</android.support.wearable.view.BoxInsetLayout>

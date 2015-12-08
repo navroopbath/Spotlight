@@ -1,6 +1,7 @@
 package com.example.chen.cs160finalproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
@@ -15,11 +16,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        }catch (InterruptedException e) {
-
-        }
-        setContentView(R.layout.activity_start_presentation);
+        Intent intent = new Intent(MainActivity.this, StartPresentation.class);
+        startActivity(intent);
     }
 }
