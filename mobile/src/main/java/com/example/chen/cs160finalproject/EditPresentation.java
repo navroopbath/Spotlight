@@ -32,6 +32,8 @@ public class EditPresentation extends AppCompatActivity {
     EditText keyword1Input;
     EditText keyword2Input;
     EditText keyword3Input;
+    EditText minuteInput;
+    EditText secondInput;
     Button addSlideButton;
     Button deleteButton;
 
@@ -51,6 +53,7 @@ public class EditPresentation extends AppCompatActivity {
         slideNum = 1;
         presentationTitle = (TextView) findViewById(R.id.presentationTitle);
         startButton = (Button) findViewById(R.id.startButton);
+        startButton.setBackgroundColor(Color.parseColor("#295055"));
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +64,16 @@ public class EditPresentation extends AppCompatActivity {
         keyword1Input = (EditText) findViewById((R.id.keyword1Input));
         keyword2Input = (EditText) findViewById(R.id.keyword2Input);
         keyword3Input = (EditText) findViewById(R.id.keyword3Input);
+
+        minuteInput = (EditText) findViewById(R.id.minuteInput);
+        secondInput = (EditText) findViewById(R.id.secondInput);
+
+        minuteInput.setHint("00");
+        secondInput.setHint("00");
+
         addSlideButton = (Button) findViewById(R.id.addSlideButton);
+        addSlideButton.setBackgroundColor(Color.parseColor("#295055"));
+
         addSlideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +83,7 @@ public class EditPresentation extends AppCompatActivity {
         });
 
         deleteButton = (Button) findViewById(R.id.deleteSlideButton);
-
+        deleteButton.setBackgroundColor(Color.parseColor("#295055"));
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             presentationNum = extras.getInt("presentation");
@@ -96,6 +108,16 @@ public class EditPresentation extends AppCompatActivity {
         }
         write();
         loadSlidesIntoView();
+        resetSlide();
+    }
+
+    private void resetSlide() {
+        keyword1Input.setText("");
+        keyword2Input.setText("");
+        keyword3Input.setText("");
+        minuteInput.setText("");
+        secondInput.setText("");
+        keyword1Input.requestFocus();
     }
 
     private void loadSlidesIntoView() {
@@ -131,9 +153,9 @@ public class EditPresentation extends AppCompatActivity {
             }
             fos.close();
         } catch (NullPointerException e) {
-            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "writePresentation error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "writePresentation error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -159,7 +181,7 @@ public class EditPresentation extends AppCompatActivity {
             }
             fis.close();
         }catch(Exception e) {
-            Toast.makeText(getApplicationContext(), "Presentation data error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Presentation data error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -169,6 +191,7 @@ public class EditPresentation extends AppCompatActivity {
      */
     private void loadPresentation() {
         load();
+        presentationTitle.setText(presentationDataList.get(0).toUpperCase());
         if(presentationDataList.size() > 1) {
             loadKeywords(1);
         }

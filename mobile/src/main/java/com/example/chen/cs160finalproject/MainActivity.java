@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     default: break;
                 }
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " : " + listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),
+//                        listDataHeader.get(groupPosition) + " : " + listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition),
+//                        Toast.LENGTH_LONG).show();
 
                 return false;
             }
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             return numPresentations;
         } finally {
-            Toast.makeText(getApplicationContext(), "Finished loading master presentation file with length " + numPresentations, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Finished loading master presentation file with length " + numPresentations, Toast.LENGTH_LONG).show();
             return numPresentations;
         }
     }
@@ -246,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
                 listDataHeader.add(title);
                 listDataChild.put(listDataHeader.get(i), presentationOptions);
             }
-            Toast.makeText(getApplicationContext(), "Finished loading presentations", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Finished loading presentations", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "errored out: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "errored out: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
