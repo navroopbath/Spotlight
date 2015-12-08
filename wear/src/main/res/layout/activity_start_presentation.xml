@@ -16,6 +16,7 @@
         android:text="VC Pitch"
         android:id="@+id/preziTitle"
         android:textSize="40dp"
+        android:typeface="monospace"
         android:textColor="#ffffff"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="58dp"

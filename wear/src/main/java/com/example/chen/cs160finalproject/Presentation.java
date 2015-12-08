@@ -87,6 +87,7 @@ public class Presentation extends Activity {
         ArrayList<String[]> rtn = new ArrayList<String[]>();
         String[] addon = new String[4];
         String[] addon2 = new String[4];
+        String[] addon3 = new String[4];
         addon[0] = "20";
         addon[1] = "Introduction";
         addon[2] = "Company History";
@@ -95,8 +96,13 @@ public class Presentation extends Activity {
         addon2[1] = "Sale up 200%";
         addon2[2] = " Active user 40M";
         addon2[3] = " User up 100%";
+        addon3[0] = "20";
+        addon3[1] = " Target Users";
+        addon3[2] = " Marketing Plan";
+        addon3[3] = "  Questions?";
         rtn.add(addon);
         rtn.add(addon2);
+        rtn.add(addon3);
 
         /*String lines[] = message.split("\\r?\\n");
         for (int i = 1; i < lines.length; i += 1){
@@ -145,7 +151,7 @@ public class Presentation extends Activity {
                 time.setText(timeNow);
             }
             public void onFinish() {
-                time.setText("TIME UP ");
+                time.setText("00 : 00");
             }
         };
 
@@ -163,6 +169,9 @@ public class Presentation extends Activity {
                     bgGreen = 1;
                 }
                 loadSlide(idx);
+            } else {
+                Intent intent = new Intent(Presentation.this, EndPresentation.class);
+                startActivity(intent);
             }
 
             return true;
@@ -175,7 +184,7 @@ public class Presentation extends Activity {
                 // right to left swipe
                 if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                     timer.cancel();
-                    Toast.makeText(Presentation.this, "Left Swipe", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Presentation.this, "Left Swipe", Toast.LENGTH_SHORT).show();
                     idx += 1;
                     if (idx < slides.size()) {
                         if (bgGreen == 0) {
@@ -183,10 +192,13 @@ public class Presentation extends Activity {
                             bgGreen = 1;
                         }
                         loadSlide(idx);
+                    } else {
+                        Intent intent = new Intent(Presentation.this, EndPresentation.class);
+                        startActivity(intent);
                     }
                 }
             } catch (Exception e) {
-                Toast.makeText(Presentation.this, "Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Presentation.this, "Error", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
