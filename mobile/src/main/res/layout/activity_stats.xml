@@ -20,15 +20,8 @@
         android:id="@+id/timeGraph"
         android:fontFamily="sans-serif-light"
         android:layout_width="match_parent"
-        android:layout_height="240dip"
+        android:layout_height="match_parent"
         android:layout_marginTop="65dp" />
-
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/accelerationGraph"
-        android:fontFamily="sans-serif-light"
-        android:layout_width="match_parent"
-        android:layout_height="240dip"
-        android:layout_marginTop="325dp" />
 
 
     <include layout="@layout/content_stats" />

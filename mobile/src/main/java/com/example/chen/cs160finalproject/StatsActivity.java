@@ -33,7 +33,6 @@ public class StatsActivity extends AppCompatActivity {
         });
 
         createTimingGraph(5.0);
-        createAccelGraph(5.0);
     }
 
     public void createTimingGraph(double numSlides) {
@@ -53,26 +52,6 @@ public class StatsActivity extends AppCompatActivity {
         timingGraph.setTitle("Seconds Spent Per Slide");
         timingGraph.setTitleTextSize(35);
         timingGraph.addSeries(timingMockSeries);
-    }
-
-    public void createAccelGraph(double numSlides) {
-        GraphView accelGraph = (GraphView) findViewById(R.id.accelerationGraph);
-        BarGraphSeries<DataPoint> accelMockSeries = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(1, 0.5),
-                new DataPoint(2, 1)
-        });
-        GridLabelRenderer accelGraphRenderer = accelGraph.getGridLabelRenderer();
-        Viewport accelViewport = accelGraph.getViewport();
-        accelViewport.setXAxisBoundsManual(true);
-        accelViewport.setMaxX(numSlides + 1.0);
-        accelGraphRenderer.setVerticalAxisTitle("Acceleration");
-        accelGraphRenderer.setHorizontalAxisTitle("Slide Number");
-        accelGraphRenderer.setGridColor(33);
-        accelGraphRenderer.setNumHorizontalLabels(7);
-
-        accelGraph.setTitle("Acceleration Per Slide");
-        accelGraph.setTitleTextSize(35);
-        accelGraph.addSeries(accelMockSeries);
     }
 
 }
