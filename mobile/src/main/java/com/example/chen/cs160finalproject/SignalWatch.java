@@ -73,20 +73,15 @@ public class SignalWatch extends Service {
 
 
     private void createAndStartTimer() {
-        /* Ask the Time API "What time is it?" at the end of INTERVAL.
-         * ----------------------
-         * Time API : GET http://www.timeapi.org/pdt/now
-         * Returns text e.g. 2015-10-08T19:33:33-07:00
-         *
-         */
+        //Change the message to "title+'\n'+ second + ' ' + keyword1 + ' ' + keyword2 + ' ' + keyword3 + '\n' + second......"
         String message = "CS160";
         message += '\n';
-        message += "20";
+        message += "20 ";
         message += "B ";
         message += "A ";
         message += "c";
         message += '\n';
-        message += "30";
+        message += "30 ";
         message += "haha ";
         message += "hehe ";
         message += "heihei";

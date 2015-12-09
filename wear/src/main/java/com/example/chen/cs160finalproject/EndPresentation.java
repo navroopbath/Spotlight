@@ -4,7 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageApi;
@@ -17,6 +23,9 @@ public class EndPresentation extends Activity {
     private TextView mTextView;
     private GoogleApiClient mApiClient;
     private static final String START_ACTIVITY = "/end_activity";
+    private GestureDetector gestureDetector;
+    View.OnTouchListener gestureListener;
+    ImageButton bgButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +33,14 @@ public class EndPresentation extends Activity {
         setContentView(R.layout.activity_end_presentation);
         Intent intent = getIntent();
         String message = intent.getStringExtra("toMobile");
+        bgButton = (ImageButton)findViewById(R.id.bgbutton);
+        gestureDetector = new GestureDetector(this, new MyGestureDetector());
+        gestureListener = new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        };
+        bgButton.setOnTouchListener(gestureListener);
         mApiClient = new GoogleApiClient.Builder( this )
                 .addApi( Wearable.API )
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -54,5 +71,13 @@ public class EndPresentation extends Activity {
                 }
             }
         }).start();
+    }
+    class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent ev) {
+            setContentView(R.layout.activity_main);
+            return true;
+        }
+
     }
 }

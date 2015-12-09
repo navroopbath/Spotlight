@@ -17,11 +17,10 @@ public class PhoneListenserService extends WearableListenerService {
     public void onMessageReceived(MessageEvent messageEvent) {
         if( messageEvent.getPath().equalsIgnoreCase( START_ACTIVITY ) ) {
             String value = new String(messageEvent.getData());
-            //Intent intent = new Intent(this, ClockActivity.class );
-            //intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-            //you need to add this flag since you're starting a new activity from a service
-            //intent.putExtra("Hour", value); //propagate over the hour
-            //startActivity(intent);
+            //The value has a format of "timeForFirstSlide timeForSecondSlide timeForThirdSlide..."
+
+            //Do what ever you want with the value
+
         } else {
             super.onMessageReceived( messageEvent );
         }
