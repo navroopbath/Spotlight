@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/endpage"
+    android:id="@+id/container" tools:context=".EndPresentation"
+    tools:deviceIds="wear">
+    <ImageButton
+        android:id="@+id/bgbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancelbutton"
+        android:alpha="0.0"
+        android:layout_marginTop="202dp"
+        android:layout_marginLeft="105dp"/>
+
+
+
+</android.support.wearable.view.BoxInsetLayout>

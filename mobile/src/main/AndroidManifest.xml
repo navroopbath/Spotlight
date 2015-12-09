@@ -14,7 +14,6 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,8 +32,18 @@
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <service
+            android:name=".SignalWatch"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".PhoneListenserService"
+            android:label="@string/title_activity_phone_listenser_service"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </service>
     </application>
 
 </manifest>
