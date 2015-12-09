@@ -98,6 +98,7 @@ public class EditPresentation extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.start:
+                storeKeywords(currentSlide);
                 Intent goToPresenting = new Intent(EditPresentation.this, PresentationInProgress.class);
                 startActivity(goToPresenting);
                 return true;
