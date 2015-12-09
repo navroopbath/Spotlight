@@ -38,6 +38,7 @@ public class Presentation extends Activity {
     TextView kw3;
     TextView slideNum;
     TextView time;
+    ImageButton cancelButton;
     BoxInsetLayout myCurrBag;
     ImageButton bgButton;
     private GestureDetector gestureDetector;
@@ -59,6 +60,7 @@ public class Presentation extends Activity {
         kw3 = (TextView)findViewById(R.id.keyword3);
         slideNum = (TextView)findViewById(R.id.slideNum);
         bgButton = (ImageButton)findViewById(R.id.PresentationButton);
+        cancelButton = (ImageButton)findViewById(R.id.redbutton);
         Intent intent = getIntent();
         gestureDetector = new GestureDetector(this, new MyGestureDetector());
         gestureListener = new View.OnTouchListener() {
@@ -72,14 +74,33 @@ public class Presentation extends Activity {
         startTime = intent.getLongExtra("StartTime", 0);
         slides = parseMessage(message);
         loadSlide(idx);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_main);
+                Intent intent = new Intent(Presentation.this, EndPresentation.class);
+                intent.putExtra("toMobile", "NoData");
+            }
+        });
 
     }
     private void loadSlide(int i) {
         int second = Integer.parseInt(slides.get(i)[0]);
         Log.d("loadSlide ", String.valueOf(i));
-        String keyword1 = slides.get(i)[1];
-        String keyword2 = slides.get(i)[2];
-        String keyword3 = slides.get(i)[3];
+        String[] keywords = slides.get(i);
+        String keyword1 = " ";
+        String keyword2 = " ";
+        String keyword3 = " ";
+        if (keywords.length > 0) {
+            keyword1 = keywords[0];
+        }
+        if (keywords.length > 1) {
+            keyword2 = keywords[1];
+        }
+        if (keywords.length > 2) {
+            keyword3 = keywords[2];
+        }
         kw1.setText(paddingString(keyword1));
         kw2.setText(paddingString(keyword2));
         kw3.setText(paddingString(keyword3));
@@ -108,7 +129,8 @@ public class Presentation extends Activity {
             String slide = lines[i];
             Log.d("Slide is :", slide);
             // Content[0] = time in seconds; Content[1] = keyword 1; Content[2] = keyword 2; Content[3] = keyword 3
-            String content[] = slide.split("\\s+");
+            //String content[] = slide.split("\\s+");
+            String content[] = slide.split(",");
             rtn.add(content);
         }
         return rtn;
@@ -185,7 +207,7 @@ public class Presentation extends Activity {
                 intent.putExtra("toMobile", timeOfSlide);
                 Log.d("To mobile is :", timeOfSlide);
                 startActivity(intent);
-                finish();
+                //finish();
             }
 
             return true;

@@ -37,11 +37,11 @@
             android:exported="true" >
         </service>
 
-        <activity
+        <service
             android:name=".PhoneListenserService"
             android:label="@string/title_activity_phone_listenser_service"
             android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+        </service>
     </application>
 
 </manifest>

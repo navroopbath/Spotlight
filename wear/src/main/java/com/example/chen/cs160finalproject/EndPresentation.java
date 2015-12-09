@@ -25,7 +25,7 @@ public class EndPresentation extends Activity {
     private static final String START_ACTIVITY = "/end_activity";
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
-    ImageButton bgButton;
+    ImageButton cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +33,14 @@ public class EndPresentation extends Activity {
         setContentView(R.layout.activity_end_presentation);
         Intent intent = getIntent();
         String message = intent.getStringExtra("toMobile");
-        bgButton = (ImageButton)findViewById(R.id.bgbutton);
+        cancelButton = (ImageButton)findViewById(R.id.cancelbutton);
         gestureDetector = new GestureDetector(this, new MyGestureDetector());
         gestureListener = new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
             }
         };
-        bgButton.setOnTouchListener(gestureListener);
+        cancelButton.setOnTouchListener(gestureListener);
         mApiClient = new GoogleApiClient.Builder( this )
                 .addApi( Wearable.API )
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -75,7 +75,11 @@ public class EndPresentation extends Activity {
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onSingleTapUp(MotionEvent ev) {
-            setContentView(R.layout.activity_main);
+            //setContentView(R.layout.activity_main);
+            Intent intent = new Intent(EndPresentation.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
             return true;
         }
 
