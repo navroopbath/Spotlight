@@ -16,10 +16,10 @@
         android:text="VC Pitch"
         android:id="@+id/preziTitle"
         android:textSize="40dp"
-        android:typeface="monospace"
+        android:fontFamily="sans-serif-light"
         android:textColor="#ffffff"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="58dp"
+        android:layout_marginLeft="8dp"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
     <ImageButton

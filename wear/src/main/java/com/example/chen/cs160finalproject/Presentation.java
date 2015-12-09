@@ -1,9 +1,11 @@
 package com.example.chen.cs160finalproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.wearable.view.BoxInsetLayout;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
@@ -18,15 +20,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class Presentation extends Activity {
+    ArrayList<Long> timePerSlide = new ArrayList<Long>();
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     private static final int SECOND = 1000;
     ArrayList<String[]> slides;
+    double letterWidth = 7.5;
+    int halfWidthOfScreen = 115 - 8;
     int idx = 0;
     int tapTime = 0;
     long startTime;
     long currTime;
+    long slideStartTime;
     TextView kw1;
     TextView kw2;
     TextView kw3;
@@ -75,9 +81,9 @@ public class Presentation extends Activity {
         String keyword1 = slides.get(i)[1];
         String keyword2 = slides.get(i)[2];
         String keyword3 = slides.get(i)[3];
-        kw1.setText(keyword1);
-        kw2.setText(keyword2);
-        kw3.setText(keyword3);
+        kw1.setText(paddingString(keyword1));
+        kw2.setText(paddingString(keyword2));
+        kw3.setText(paddingString(keyword3));
         slideNum.setText(String.valueOf(i + 1) + "/" + String.valueOf(slides.size()));
         createAndStartTimer(second * 1000);
 
@@ -87,22 +93,29 @@ public class Presentation extends Activity {
         ArrayList<String[]> rtn = new ArrayList<String[]>();
         String[] addon = new String[4];
         String[] addon2 = new String[4];
-        String[] addon3 = new String[4];
+        //String[] addon3 = new String[4];
         addon[0] = "20";
-        addon[1] = "Introduction";
-        addon[2] = "Company History";
-        addon[3] = "Product intro";
+        //addon[1] = "Introduction";
+        addon[1] = "B";
+        //addon[2] = "Company History";
+        addon[2] = "a";
+        //addon[3] = "Product intro";
+        addon[3] = "c";
         addon2[0] = "30";
-        addon2[1] = "Sale up 200%";
-        addon2[2] = " Active user 40M";
-        addon2[3] = " User up 100%";
-        addon3[0] = "20";
-        addon3[1] = " Target Users";
-        addon3[2] = " Marketing Plan";
-        addon3[3] = "  Questions?";
+        //addon2[1] = "Sale up 200%";
+        addon2[1] = "Goals";
+
+        //addon2[2] = " Active user 40M";
+        addon2[2] = "Excel";
+        //addon2[3] = " User up 100%";
+          addon2[3] = "Flawless";
+        //addon3[0] = "20";
+        //addon3[1] = " Target Users";
+        //addon3[2] = " Marketing Plan";
+        //addon3[3] = "  Questions?";
         rtn.add(addon);
         rtn.add(addon2);
-        rtn.add(addon3);
+        //rtn.add(addon3);
 
         /*String lines[] = message.split("\\r?\\n");
         for (int i = 1; i < lines.length; i += 1){
@@ -114,6 +127,7 @@ public class Presentation extends Activity {
         return rtn;
     }
     private void createAndStartTimer(final int miliseconds) {
+        slideStartTime = System.currentTimeMillis();
         Log.d("miliseconds", String.valueOf(miliseconds));
         timer = new CountDownTimer(miliseconds, SECOND) {
             long milisec_remain = miliseconds;
@@ -152,6 +166,9 @@ public class Presentation extends Activity {
             }
             public void onFinish() {
                 time.setText("00 : 00");
+                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 500 milliseconds
+                v.vibrate(500);
             }
         };
 
@@ -168,10 +185,14 @@ public class Presentation extends Activity {
                     myCurrBag.setBackgroundResource(R.drawable.greenbackground);
                     bgGreen = 1;
                 }
+                currTime = System.currentTimeMillis();
+                timePerSlide.add((currTime - slideStartTime)/1000);
+                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                 loadSlide(idx);
             } else {
                 Intent intent = new Intent(Presentation.this, EndPresentation.class);
                 startActivity(intent);
+                finish();
             }
 
             return true;
@@ -191,10 +212,16 @@ public class Presentation extends Activity {
                             myCurrBag.setBackgroundResource(R.drawable.greenbackground);
                             bgGreen = 1;
                         }
+                        currTime = System.currentTimeMillis();
+                        timePerSlide.add((currTime - slideStartTime)/1000);
+                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                         loadSlide(idx);
                     } else {
                         Intent intent = new Intent(Presentation.this, EndPresentation.class);
+                        String timeOfSlide = convertTimetoString(timePerSlide);
+                        intent.putExtra("toMobile", timeOfSlide);
                         startActivity(intent);
+                        finish();
                     }
                 }
             } catch (Exception e) {
@@ -202,6 +229,20 @@ public class Presentation extends Activity {
             }
             return false;
         }
+    }
+    private String convertTimetoString(ArrayList<Long> time) {
+        return null;
+    }
+    private String paddingString(String msg) {
+        int length = msg.length();
+        int numOfSpace = (int)((double)halfWidthOfScreen/letterWidth) - (length + 1)/2;
+        Log.d("num of space: ", String.valueOf(numOfSpace));
+        String rtn = "";
+        for (int i = 0; i < numOfSpace; i += 1) {
+            rtn += " ";
+        }
+        rtn += msg;
+        return rtn;
     }
 }
 

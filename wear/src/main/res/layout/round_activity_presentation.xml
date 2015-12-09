@@ -18,6 +18,7 @@
         android:textSize="30dp"
         android:textColor="#000000"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginLeft="85dp"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
@@ -28,6 +29,7 @@
         android:id="@+id/keyword1"
         android:textSize="30dp"
         android:textColor="#000000"
+        android:fontFamily="sans-serif-light"
         android:layout_marginTop="55dp"
         android:layout_marginLeft="85dp"
         android:layout_below="@+id/startButton"
@@ -39,6 +41,7 @@
         android:id="@+id/keyword2"
         android:textSize="30dp"
         android:textColor="#000000"
+        android:fontFamily="sans-serif-light"
         android:layout_marginTop="85dp"
         android:layout_marginLeft="85dp"
         android:layout_below="@+id/startButton"
@@ -52,6 +55,7 @@
         android:textColor="#000000"
         android:layout_marginTop="115dp"
         android:layout_marginLeft="85dp"
+        android:fontFamily="sans-serif-light"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
     <TextView
@@ -62,6 +66,7 @@
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:layout_marginTop="180dp"
+        android:fontFamily="sans-serif-light"
         android:layout_marginLeft="105dp"
         android:alpha="0.7"
         android:layout_below="@+id/startButton"

@@ -12,7 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class StartPresentation extends Activity {
-
+    double letterWidth = 12.5;
+    int halfWidthOfScreen = 110 - 8;
     TextView preziTitle;
     String message;
 
@@ -24,9 +25,11 @@ public class StartPresentation extends Activity {
         //final String message = intent.getStringExtra("Message");
         //String lines[] = message.split("\\r?\\n");
         //String title = lines[0];
+        String title = "CS160haha";
         preziTitle = (TextView)findViewById(R.id.preziTitle);
         //preziTitle.setText(title);
-        preziTitle.setText("VC Pitch");
+        //preziTitle.setText("VC Pitch");
+        preziTitle.setText(paddingString(title));
         Boolean i = (preziTitle == null);
         Log.d("i is", i.toString());
         message = "haha";
@@ -42,10 +45,28 @@ public class StartPresentation extends Activity {
                 intent.putExtra("Message", message); //propagate over the hour
                 intent.putExtra("StartTime", currTime);
                 startActivity(intent);
+                finish();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_main);
             }
         });
 
-
+    }
+    private String paddingString(String msg) {
+        int length = msg.length();
+        int numOfSpace = (int)((double)halfWidthOfScreen/letterWidth) - (length + 1)/2;
+        Log.d("num of space: ", String.valueOf(numOfSpace));
+        String rtn = "";
+        for (int i = 0; i < numOfSpace; i += 1) {
+            rtn += " ";
+        }
+        rtn += msg;
+        return rtn;
     }
 
 
