@@ -67,8 +67,7 @@ public class Presentation extends Activity {
             }
         };
         bgButton.setOnTouchListener(gestureListener);
-        //barTimer = (ProgressBar)findViewById(R.id.barTimer);
-        //startTimer(1);
+
         String message = intent.getStringExtra("Message");
         startTime = intent.getLongExtra("StartTime", 0);
         slides = parseMessage(message);
@@ -91,39 +90,27 @@ public class Presentation extends Activity {
     /* Assume the message in the form "second keyword1 keyword2 keyword3 \n second ... ... ..." */
     private ArrayList<String[]> parseMessage(String message){
         ArrayList<String[]> rtn = new ArrayList<String[]>();
-        String[] addon = new String[4];
+        /*String[] addon = new String[4];
         String[] addon2 = new String[4];
-        //String[] addon3 = new String[4];
         addon[0] = "20";
-        //addon[1] = "Introduction";
         addon[1] = "B";
-        //addon[2] = "Company History";
         addon[2] = "a";
-        //addon[3] = "Product intro";
         addon[3] = "c";
         addon2[0] = "30";
-        //addon2[1] = "Sale up 200%";
         addon2[1] = "Goals";
-
-        //addon2[2] = " Active user 40M";
         addon2[2] = "Excel";
-        //addon2[3] = " User up 100%";
-          addon2[3] = "Flawless";
-        //addon3[0] = "20";
-        //addon3[1] = " Target Users";
-        //addon3[2] = " Marketing Plan";
-        //addon3[3] = "  Questions?";
+        addon2[3] = "Flawless";
         rtn.add(addon);
-        rtn.add(addon2);
-        //rtn.add(addon3);
+        rtn.add(addon2);*/
 
-        /*String lines[] = message.split("\\r?\\n");
+        String lines[] = message.split("\\r?\\n");
         for (int i = 1; i < lines.length; i += 1){
-            String slide = lines[0];
+            String slide = lines[i];
+            Log.d("Slide is :", slide);
             // Content[0] = time in seconds; Content[1] = keyword 1; Content[2] = keyword 2; Content[3] = keyword 3
             String content[] = slide.split("\\s+");
             rtn.add(content);
-        }*/
+        }
         return rtn;
     }
     private void createAndStartTimer(final int miliseconds) {
@@ -190,7 +177,13 @@ public class Presentation extends Activity {
                 Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                 loadSlide(idx);
             } else {
+                currTime = System.currentTimeMillis();
+                timePerSlide.add((currTime - slideStartTime)/1000);
+                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Presentation.this, EndPresentation.class);
+                String timeOfSlide = convertTimetoString(timePerSlide);
+                intent.putExtra("toMobile", timeOfSlide);
+                Log.d("To mobile is :", timeOfSlide);
                 startActivity(intent);
                 finish();
             }
@@ -217,11 +210,14 @@ public class Presentation extends Activity {
                         Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                         loadSlide(idx);
                     } else {
+                        currTime = System.currentTimeMillis();
+                        timePerSlide.add((currTime - slideStartTime)/1000);
+                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Presentation.this, EndPresentation.class);
                         String timeOfSlide = convertTimetoString(timePerSlide);
                         intent.putExtra("toMobile", timeOfSlide);
                         startActivity(intent);
-                        finish();
+                        //finish();
                     }
                 }
             } catch (Exception e) {
@@ -231,7 +227,12 @@ public class Presentation extends Activity {
         }
     }
     private String convertTimetoString(ArrayList<Long> time) {
-        return null;
+        String rtn = "";
+        for (int i = 0; i < time.size(); i += 1) {
+            rtn += String.valueOf(time.get(i));
+            rtn += " ";
+        }
+        return rtn;
     }
     private String paddingString(String msg) {
         int length = msg.length();

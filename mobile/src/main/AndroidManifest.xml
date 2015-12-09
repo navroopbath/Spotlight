@@ -32,10 +32,16 @@
         </activity>
 
         <service
-            android:name=".SignalWatchService"
+            android:name=".SignalWatch"
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".PhoneListenserService"
+            android:label="@string/title_activity_phone_listenser_service"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

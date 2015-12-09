@@ -21,18 +21,15 @@ public class StartPresentation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_presentation);
-        //Intent intent = getIntent();
+        Intent intent = getIntent();
         //final String message = intent.getStringExtra("Message");
-        //String lines[] = message.split("\\r?\\n");
-        //String title = lines[0];
-        String title = "CS160haha";
+        final String message = "CS160" + '\n' + "20 " + "B "+"A "+"c"+'\n'+"30 "+"haha "+"hehe "+"heihei";
+        String lines[] = message.split("\\r?\\n");
+        String title = lines[0];
         preziTitle = (TextView)findViewById(R.id.preziTitle);
-        //preziTitle.setText(title);
         //preziTitle.setText("VC Pitch");
         preziTitle.setText(paddingString(title));
-        Boolean i = (preziTitle == null);
-        Log.d("i is", i.toString());
-        message = "haha";
+        Log.d("i is", title);
         ImageButton startButton = (ImageButton) findViewById(R.id.greenbutton);
         ImageButton cancelButton = (ImageButton) findViewById(R.id.redbutton);
         startButton.setOnClickListener( new View.OnClickListener() {
