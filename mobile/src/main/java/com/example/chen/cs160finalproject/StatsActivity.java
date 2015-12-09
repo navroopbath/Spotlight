@@ -32,46 +32,47 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
+        createTimingGraph(5.0);
+        createAccelGraph(5.0);
+    }
+
+    public void createTimingGraph(double numSlides) {
         GraphView timingGraph = (GraphView) findViewById(R.id.timeGraph);
-        GraphView accelGraph = (GraphView) findViewById(R.id.accelerationGraph);
         BarGraphSeries<DataPoint> timingMockSeries = new BarGraphSeries<DataPoint>(new DataPoint[] {
                 new DataPoint(1, 5),
-                new DataPoint(2, 30),
-                new DataPoint(3, 2),
-                new DataPoint(4, 60),
-                new DataPoint(5, 20)
-        });
-        BarGraphSeries<DataPoint> accelMockSeries = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(1, 0.5),
-                new DataPoint(2, 1),
-                new DataPoint(3, 0.01),
-                new DataPoint(4, 2),
-                new DataPoint(5, 0.3)
+                new DataPoint(2, 30)
         });
         GridLabelRenderer timingGraphRenderer = timingGraph.getGridLabelRenderer();
-        GridLabelRenderer accelGraphRenderer = accelGraph.getGridLabelRenderer();
         Viewport timingViewport = timingGraph.getViewport();
-        Viewport accelViewport = accelGraph.getViewport();
         timingViewport.setXAxisBoundsManual(true);
-        timingViewport.setMaxX(6.0);
-        accelViewport.setXAxisBoundsManual(true);
-        accelViewport.setMaxX(6.0);
+        timingViewport.setMaxX(numSlides + 1.0);
         timingGraphRenderer.setVerticalAxisTitle("Seconds");
         timingGraphRenderer.setHorizontalAxisTitle("Slide Number");
         timingGraphRenderer.setGridColor(33);
         timingGraphRenderer.setNumHorizontalLabels(7);
+        timingGraph.setTitle("Seconds Spent Per Slide");
+        timingGraph.setTitleTextSize(35);
+        timingGraph.addSeries(timingMockSeries);
+    }
+
+    public void createAccelGraph(double numSlides) {
+        GraphView accelGraph = (GraphView) findViewById(R.id.accelerationGraph);
+        BarGraphSeries<DataPoint> accelMockSeries = new BarGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(1, 0.5),
+                new DataPoint(2, 1)
+        });
+        GridLabelRenderer accelGraphRenderer = accelGraph.getGridLabelRenderer();
+        Viewport accelViewport = accelGraph.getViewport();
+        accelViewport.setXAxisBoundsManual(true);
+        accelViewport.setMaxX(numSlides + 1.0);
         accelGraphRenderer.setVerticalAxisTitle("Acceleration");
         accelGraphRenderer.setHorizontalAxisTitle("Slide Number");
         accelGraphRenderer.setGridColor(33);
         accelGraphRenderer.setNumHorizontalLabels(7);
-        timingGraph.setTitle("Seconds Spent Per Slide");
-        timingGraph.setTitleTextSize(35);
-        timingGraph.addSeries(timingMockSeries);
+
         accelGraph.setTitle("Acceleration Per Slide");
         accelGraph.setTitleTextSize(35);
         accelGraph.addSeries(accelMockSeries);
-
-
     }
 
 }

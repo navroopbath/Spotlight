@@ -2,53 +2,37 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="#ffffff"
+    android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.example.chen.cs160finalproject.EditPresentation">
 
     <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
         android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:backgroundTint="#3366cc" app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:fontFamily="sans-serif-light"
+            android:elevation="4dp"
+            android:backgroundTint="#3366cc"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/presentationTitle"
-        android:ems="7"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="35dp"
-        android:layout_marginTop="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Start "
-        android:id="@+id/startButton"
-        android:textSize="25dp"
-        android:textColor="#ffffff"
-        android:backgroundTint="#6699FF"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Keyword 1"
+        android:fontFamily="sans-serif-light"
         android:id="@+id/keyword1"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="90dp"
         android:layout_marginLeft="25dp"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
@@ -57,10 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Keyword 2"
+        android:fontFamily="sans-serif-light"
         android:id="@+id/keyword2"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="170dp"
         android:layout_marginLeft="25dp"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
@@ -69,10 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Keyword 3"
+        android:fontFamily="sans-serif-light"
         android:id="@+id/keyword3"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="250dp"
         android:layout_marginLeft="25dp"
         android:layout_below="@+id/startButton"
         android:layout_alignStart="@+id/titleTextView" />
@@ -82,9 +68,10 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
+        android:fontFamily="sans-serif-light"
         android:textColor="#000000"
         android:id="@+id/keyword1Input"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="85dp"
         android:layout_marginLeft="140dp"
         android:layout_alignParentEnd="true" />
 
@@ -92,10 +79,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:fontFamily="sans-serif-light"
         android:ems="10"
         android:textColor="#000000"
         android:id="@+id/keyword2Input"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="165dp"
         android:layout_marginLeft="140dp"
         android:layout_alignParentEnd="true" />
 
@@ -103,10 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:fontFamily="sans-serif-light"
         android:ems="10"
         android:textColor="#000000"
         android:id="@+id/keyword3Input"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="245dp"
         android:layout_marginLeft="140dp"
         android:layout_alignParentEnd="true" />
 
@@ -114,10 +103,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:fontFamily="sans-serif-light"
         android:ems="3"
         android:id="@+id/minuteInput"
         android:gravity="center"
-        android:layout_marginTop="325dp"
+        android:layout_marginTop="315dp"
         android:layout_marginLeft="105dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
@@ -126,9 +116,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
+        android:fontFamily="sans-serif-light"
         android:id="@+id/colon"
-        android:textSize="50dp"
-        android:layout_marginTop="310dp"
+        android:textSize="45dp"
+        android:layout_marginTop="300dp"
         android:layout_marginLeft="180dp"
         android:layout_toEndOf="@+id/minute" />
 
@@ -136,10 +127,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:fontFamily="sans-serif-light"
         android:ems="3"
         android:id="@+id/secondInput"
         android:gravity="center"
-        android:layout_marginTop="325dp"
+        android:layout_marginTop="315dp"
         android:layout_marginLeft="205dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
@@ -149,10 +141,11 @@
         android:layout_height="wrap_content"
         android:text=" Add Slide "
         android:textSize="25dp"
+        android:fontFamily="sans-serif-light"
         android:backgroundTint="#6699FF"
         android:textColor="#ffffff"
         android:id="@+id/addSlideButton"
-        android:layout_marginTop="487dp"
+        android:layout_marginTop="477dp"
         android:layout_marginLeft="20dp"
         android:layout_alignEnd="@+id/keyword3"/>
 
@@ -161,10 +154,11 @@
         android:layout_height="wrap_content"
         android:text=" Delete Slide "
         android:textSize="25dp"
+        android:fontFamily="sans-serif-light"
         android:backgroundTint="#6699FF"
         android:textColor="#ffffff"
         android:id="@+id/deleteSlideButton"
-        android:layout_marginTop="487dp"
+        android:layout_marginTop="477dp"
         android:layout_marginLeft="170dp"
         android:layout_alignEnd="@+id/keyword3Input" />
 
@@ -173,7 +167,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/horizontalScrollView"
         android:background="#6699FF"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="385dp"
         android:layout_alignParentStart="true">
         <LinearLayout
             android:id="@+id/slides"
@@ -182,6 +176,7 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/defaultSlide"
+                android:fontFamily="sans-serif-light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 1 "
@@ -190,62 +185,6 @@
                 android:textColor="#ffffff"/>
         </LinearLayout>
     </HorizontalScrollView>
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/plusoneMinute"
-        android:text="+ 1"
-        android:textSize="20dp"
-        android:backgroundTint="#6699FF"
-        android:textColor="#ffffff"
-        android:layout_marginTop="290dp"
-        android:layout_marginLeft="40dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/minusoneMinute"
-        android:text="-  1"
-        android:textSize="20dp"
-        android:backgroundTint="#6699FF"
-        android:textColor="#ffffff"
-        android:layout_marginTop="340dp"
-        android:layout_marginLeft="40dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/plusoneSecond"
-        android:text="+ 1"
-        android:textSize="20dp"
-        android:backgroundTint="#6699FF"
-        android:textColor="#ffffff"
-        android:layout_marginTop="290dp"
-        android:layout_marginLeft="285dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/minusoneSecond"
-        android:text="-  1"
-        android:textSize="20dp"
-        android:backgroundTint="#6699FF"
-        android:textColor="#ffffff"
-        android:layout_marginTop="340dp"
-        android:layout_marginLeft="285dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
 
     <include layout="@layout/content_edit_presentation" />
 

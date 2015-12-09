@@ -24,9 +24,10 @@
         android:src="@drawable/white_plus_symbol" />
 
     <ExpandableListView
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/parentListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/parentListView"
         android:layout_marginTop="56dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
