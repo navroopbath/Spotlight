@@ -1,2 +1,6 @@
-# Spotlight
-Share and deliver your ideas with more impact by practicing your presentations with Spotlight.
+Team 17: 5 rivers
+
+List of team names:
+Chang, Navroop, Richard, Tammy, and Chuchu
+
+Note: Code for the final app is on the actualMobile branch
