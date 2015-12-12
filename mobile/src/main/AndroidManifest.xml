@@ -40,10 +40,11 @@
             android:exported="true" >
         </service>
         <service
-            android:name=".PhoneListenserService"
-            android:label="@string/title_activity_phone_listenser_service"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".PhoneListenerService"
+            android:label="@string/title_activity_phone_listener_service">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
         </service>
     </application>
-
 </manifest>

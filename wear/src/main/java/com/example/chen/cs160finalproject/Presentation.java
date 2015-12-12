@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Presentation extends Activity {
     ArrayList<Long> timePerSlide = new ArrayList<Long>();
@@ -75,8 +77,13 @@ public class Presentation extends Activity {
 
     }
     private void loadSlide(int i) {
+        String[]arr = slides.get(i);
+        String msg = "";
+        for(int j = 0; j < arr.length; j++){
+            msg += arr[j];
+        }
+        Log.d("loadSlide ", msg);
         int second = Integer.parseInt(slides.get(i)[0]);
-        Log.d("loadSlide ", String.valueOf(i));
         String keyword1 = slides.get(i)[1];
         String keyword2 = slides.get(i)[2];
         String keyword3 = slides.get(i)[3];
@@ -108,7 +115,7 @@ public class Presentation extends Activity {
             String slide = lines[i];
             Log.d("Slide is :", slide);
             // Content[0] = time in seconds; Content[1] = keyword 1; Content[2] = keyword 2; Content[3] = keyword 3
-            String content[] = slide.split("\\s+");
+            String content[] = slide.split(",");
             rtn.add(content);
         }
         return rtn;
@@ -174,12 +181,12 @@ public class Presentation extends Activity {
                 }
                 currTime = System.currentTimeMillis();
                 timePerSlide.add((currTime - slideStartTime)/1000);
-                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                 loadSlide(idx);
             } else {
                 currTime = System.currentTimeMillis();
                 timePerSlide.add((currTime - slideStartTime)/1000);
-                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Presentation.this, EndPresentation.class);
                 String timeOfSlide = convertTimetoString(timePerSlide);
                 intent.putExtra("toMobile", timeOfSlide);
@@ -207,12 +214,12 @@ public class Presentation extends Activity {
                         }
                         currTime = System.currentTimeMillis();
                         timePerSlide.add((currTime - slideStartTime)/1000);
-                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                         loadSlide(idx);
                     } else {
                         currTime = System.currentTimeMillis();
                         timePerSlide.add((currTime - slideStartTime)/1000);
-                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Presentation.this, String.valueOf((currTime - slideStartTime)/1000), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Presentation.this, EndPresentation.class);
                         String timeOfSlide = convertTimetoString(timePerSlide);
                         intent.putExtra("toMobile", timeOfSlide);

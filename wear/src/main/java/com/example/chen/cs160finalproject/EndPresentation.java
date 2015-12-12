@@ -1,6 +1,7 @@
 package com.example.chen.cs160finalproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
@@ -18,11 +19,11 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 public class EndPresentation extends Activity {
 
-    private TextView mTextView;
-    private GoogleApiClient mApiClient;
-    private static final String START_ACTIVITY = "/end_activity";
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
     ImageButton bgButton;
@@ -41,43 +42,39 @@ public class EndPresentation extends Activity {
             }
         };
         bgButton.setOnTouchListener(gestureListener);
-        mApiClient = new GoogleApiClient.Builder( this )
-                .addApi( Wearable.API )
-                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                    @Override
-                    public void onConnected(Bundle connectionHint) {
-                        /* Successfully connected */
-                    }
 
-                    @Override
-                    public void onConnectionSuspended(int cause) {
-                        /* Connection was interrupted */
-                    }
-                })
-                .build();
+        Intent sendStatsBackService = new Intent(this, SendStatsBackService.class);
+        sendStatsBackService.putExtra("data", message);
+        startService(sendStatsBackService);
 
-        mApiClient.connect();
-        sendMessage(START_ACTIVITY, message);
-
+        Log.e("EndPresentation", message);
     }
-    private void sendMessage( final String path, final String text ) {
-        new Thread( new Runnable() {
-            @Override
-            public void run() {
-                NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes( mApiClient ).await();
-                for(Node node : nodes.getNodes()) {
-                    MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(
-                            mApiClient, node.getId(), path, text.getBytes() ).await();
-                }
-            }
-        }).start();
-    }
+
+//    private GoogleApiClient getGoogleApiClient(Context context) {
+//        return new GoogleApiClient.Builder(context).addApi(Wearable.API).build();
+//    }
+
+//    private void retrieveDeviceNode() {
+//        final GoogleApiClient client = getGoogleApiClient(this);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                client.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
+//                NodeApi.GetConnectedNodesResult result = Wearable.NodeApi.getConnectedNodes(client).await();
+//                List<Node> nodes = result.getNodes();
+//                if(nodes.size() > 0) {
+//                    nodeId = nodes.get(0).getId();
+//                }
+//                client.disconnect();
+//            }
+//        }).start();
+//    }
+
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onSingleTapUp(MotionEvent ev) {
             setContentView(R.layout.activity_main);
             return true;
         }
-
     }
 }

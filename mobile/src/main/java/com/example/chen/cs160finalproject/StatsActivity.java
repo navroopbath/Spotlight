@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,7 +16,13 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class StatsActivity extends AppCompatActivity {
+
+    String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +38,34 @@ public class StatsActivity extends AppCompatActivity {
                 startActivity(goToMenu);
             }
         });
-
-        createTimingGraph(5.0);
+        Bundle extras = getIntent().getExtras();
+        Log.d("StatsActivity", String.valueOf(extras == null));
+        if (extras != null) {
+            data = extras.getString("data");
+            Log.d("StatsActivity", data);
+            createTimingGraph(data);
+        }
     }
 
-    public void createTimingGraph(double numSlides) {
+    public void createTimingGraph(String data) {
+        Log.d("StatsActivity", data);
+        List<String> dataList = Arrays.asList(data.split(" "));
+        List<DataPoint> dataPoints = new ArrayList<>();
+        for(int i = 0; i < dataList.size(); i++) {
+            Log.d("StatsActivity", dataList.get(i));
+            dataPoints.add(new DataPoint(i + 1, Integer.parseInt(dataList.get(i))));
+        }
+
         GraphView timingGraph = (GraphView) findViewById(R.id.timeGraph);
-        BarGraphSeries<DataPoint> timingMockSeries = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(1, 5),
-                new DataPoint(2, 30)
-        });
+        LineGraphSeries<DataPoint> timingMockSeries = new LineGraphSeries<DataPoint>(dataPoints.toArray(new DataPoint[dataPoints.size()]));
         GridLabelRenderer timingGraphRenderer = timingGraph.getGridLabelRenderer();
         Viewport timingViewport = timingGraph.getViewport();
-        timingViewport.setXAxisBoundsManual(true);
-        timingViewport.setMaxX(numSlides + 1.0);
+        //timingViewport.setXAxisBoundsManual(true);
+        //timingViewport.setMaxX(dataList.size() * 2);
         timingGraphRenderer.setVerticalAxisTitle("Seconds");
         timingGraphRenderer.setHorizontalAxisTitle("Slide Number");
         timingGraphRenderer.setGridColor(33);
-        timingGraphRenderer.setNumHorizontalLabels(7);
+        //timingGraphRenderer.setNumHorizontalLabels(dataList.size() + 1);
         timingGraph.setTitle("Seconds Spent Per Slide");
         timingGraph.setTitleTextSize(35);
         timingGraph.addSeries(timingMockSeries);

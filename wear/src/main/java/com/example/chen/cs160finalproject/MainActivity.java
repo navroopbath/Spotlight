@@ -16,8 +16,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, StartPresentation.class);
-        startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, WatchListenerService.class);
+        startService(intent);
         finish();
     }
 }

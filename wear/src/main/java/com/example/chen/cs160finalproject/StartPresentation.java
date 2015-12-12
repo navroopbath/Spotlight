@@ -22,8 +22,8 @@ public class StartPresentation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_presentation);
         Intent intent = getIntent();
-        //final String message = intent.getStringExtra("Message");
-        final String message = "CS160" + '\n' + "20 " + "B "+"A "+"c"+'\n'+"30 "+"haha "+"hehe "+"heihei";
+        final String message = intent.getStringExtra("Message");
+       // final String message = "CS160" + '\n' + "20 " + "B "+"A "+"c"+'\n'+"30 "+"haha "+"hehe "+"heihei";
         String lines[] = message.split("\\r?\\n");
         String title = lines[0];
         preziTitle = (TextView)findViewById(R.id.preziTitle);

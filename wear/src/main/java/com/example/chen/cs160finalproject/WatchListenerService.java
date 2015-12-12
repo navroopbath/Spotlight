@@ -21,7 +21,8 @@ public class WatchListenerService extends WearableListenerService {
             Intent intent = new Intent(this, StartPresentation.class );
             intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             //you need to add this flag since you're starting a new activity from a service
-            intent.putExtra("Message", value); //propagate over the hour
+            intent.putExtra("Message", value); //propagate over the hour\
+            Log.e("WatchListenerService", value);
             startActivity(intent);
         } else {
             super.onMessageReceived( messageEvent );

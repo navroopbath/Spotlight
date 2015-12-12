@@ -27,6 +27,8 @@ public class PresentationInProgress extends AppCompatActivity {
                 startActivity(goToMenu);
             }
         });
+        Intent startPhoneListenerService = new Intent(PresentationInProgress.this, PhoneListenerService.class);
+        startService(startPhoneListenerService);
     }
 
 }

@@ -99,12 +99,39 @@ public class EditPresentation extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.start:
                 storeKeywords(currentSlide);
+                passDataToWatch();
+
                 Intent goToPresenting = new Intent(EditPresentation.this, PresentationInProgress.class);
                 startActivity(goToPresenting);
                 return true;
 
             default: return true;
         }
+    }
+
+    private void passDataToWatch() {
+        Intent goToWatch = new Intent(EditPresentation.this, SignalWatch.class);
+
+        String dataToPass = presentationDataList.get(0) + "\n";
+        int totalSlides = Integer.parseInt(presentationDataList.get(1));
+        int lineCounter = 2;
+        int numKeywords;
+        for(int i = 0; i < totalSlides; i++) {
+            String nextLine = "";
+            numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
+            if(numKeywords != 0) {
+                nextLine += presentationDataList.get(lineCounter + numKeywords + 1) + ",";
+                for (int j = 0; j < numKeywords - 1; j++) {
+                    nextLine += presentationDataList.get(lineCounter + j + 1) + ",";
+                }
+                nextLine += presentationDataList.get(lineCounter + numKeywords);
+                dataToPass += nextLine + "\n";
+            }
+            lineCounter += numKeywords + MainActivity.EXTRA_LINES + 1;
+        }
+        dataToPass = dataToPass.trim();
+        goToWatch.putExtra("data", dataToPass);
+        startService(goToWatch);
     }
 
     private void deleteSlide(int slideNumber) {

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     List<String> presentationOptions;
+    List<String> presentationDataList;
     HashMap<String, List<String>> listDataChild;
     final static String FILE_NAME_BASE = "presentation_";
     final static int EXTRA_LINES = 1;
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(goToEdit);
                         break;
                     case 1:
+                        load(groupPosition);
+                        passDataToWatch();
                         Intent goToProgress = new Intent(MainActivity.this, PresentationInProgress.class);
                         packIntent(goToProgress, groupPosition);
                         startActivity(goToProgress);
@@ -104,6 +107,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void passDataToWatch() {
+        Intent goToWatch = new Intent(this, SignalWatch.class);
+
+        String dataToPass = presentationDataList.get(0) + "\n";
+        int totalSlides = Integer.parseInt(presentationDataList.get(1));
+        int lineCounter = 2;
+        int numKeywords;
+        for(int i = 0; i < totalSlides; i++) {
+            String nextLine = "";
+            numKeywords = Integer.parseInt(presentationDataList.get(lineCounter));
+            if(numKeywords != 0) {
+                nextLine += presentationDataList.get(lineCounter + numKeywords + 1) + ",";
+                for (int j = 0; j < numKeywords - 1; j++) {
+                    nextLine += presentationDataList.get(lineCounter + j + 1) + ",";
+                }
+                nextLine += presentationDataList.get(lineCounter + numKeywords);
+                dataToPass += nextLine + "\n";
+            }
+            lineCounter += numKeywords + MainActivity.EXTRA_LINES + 1;
+        }
+        dataToPass = dataToPass.trim();
+        goToWatch.putExtra("data", dataToPass);
+        startService(goToWatch);
+    }
+
+    private void load(int presentationNum) {
+        try {
+            String FILE_NAME = MainActivity.FILE_NAME_BASE + presentationNum;
+
+            FileInputStream fis = openFileInput(FILE_NAME);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((fis)));
+            String line = "";
+            StringBuffer buffer = new StringBuffer();
+            while((line = bufferedReader.readLine()) != null) {
+                buffer.append(line + "\n");
+            }
+            String[]presentationData = buffer.toString().split("\n");
+            presentationDataList = new ArrayList<>();
+            for(int i = 0; i < presentationData.length; i++) {
+                presentationDataList.add(presentationData[i]);
+            }
+            fis.close();
+        }catch(Exception e) {
+//            Toast.makeText(getApplicationContext(), "Presentation data error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

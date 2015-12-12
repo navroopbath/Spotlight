@@ -29,19 +29,8 @@ import java.util.Scanner;
 */
 
 public class SignalWatch extends Service {
-
-    private static final int INTERVAL = 300000;
-    private static final int SECOND = 1000;
-
     private GoogleApiClient mApiClient;
-
-
-    /* TIME API DETAILS */
-    private String mUrlString = "http://www.timeapi.org/pdt/now";
-    private String mTimeResponse = "";
     private static final String START_ACTIVITY = "/start_activity";
-
-
 
     @Override
     public void onCreate() {
@@ -67,28 +56,17 @@ public class SignalWatch extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Kick off new work to do
-        createAndStartTimer();
+        sendDataToWatch(intent);
         return START_STICKY;
     }
 
 
-    private void createAndStartTimer() {
+    private void sendDataToWatch(Intent intent) {
         //Change the message to "title+'\n'+ second + ' ' + keyword1 + ' ' + keyword2 + ' ' + keyword3 + '\n' + second......"
-        String message = "CS160";
-        message += '\n';
-        message += "20 ";
-        message += "B ";
-        message += "A ";
-        message += "c";
-        message += '\n';
-        message += "30 ";
-        message += "haha ";
-        message += "hehe ";
-        message += "heihei";
+        String message = intent.getStringExtra("data");
+        Log.e("SignalWatch", message);
         mApiClient.connect(); //connect to the API client to send a message!
         sendMessage(START_ACTIVITY, message); //actually send the message to the watch
-                            //pass extra information of the hour (as a string)
-
     }
 
     @Override
@@ -115,5 +93,4 @@ public class SignalWatch extends Service {
         super.onDestroy();
         mApiClient.disconnect();
     }
-
 }
